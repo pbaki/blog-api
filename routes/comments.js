@@ -1,8 +1,11 @@
 var express = require("express");
 var router = express.Router();
 
-router.get("/comments", function (req, res, next) {
-  res.send("respond with a resource");
-});
+const commentController = require("../controller/commentController");
+
+router.get("/comments", commentController.get_comments);
+router.get("/comments/:commentid", commentController.get_single_comment);
+router.put("/comments/:commentid", commentController.update_single_comment);
+router.delete("/comments/:commentid", commentController.delete_single_comment);
 
 module.exports = router;
