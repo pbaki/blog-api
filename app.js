@@ -10,6 +10,8 @@ var commentsRouter = require("./routes/comments");
 
 var app = express();
 
+app.use(express.json());
+
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 
