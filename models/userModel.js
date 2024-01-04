@@ -5,8 +5,8 @@ const userSchema = new Schema({
   username: { type: String, required: true, maxLength: 100 },
   password: { type: String, required: true, maxLength: 100 },
   email: { type: String, required: false },
-  comments: [{ type: Schema.Types.ObjectId, ref: "comments" }],
-  posts: [{ type: Schema.Types.ObjectId, ref: "blogpost" }],
+  comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
+  posts: [{ type: Schema.Types.ObjectId, ref: "Blog" }],
   membership: [{ type: String, enum: ["basic", "creator", "admin"] }],
   date: { type: Date, default: Date.now },
   meta: {

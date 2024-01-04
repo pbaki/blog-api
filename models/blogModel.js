@@ -6,7 +6,7 @@ const blogSchema = new Schema({
   authors: [{ type: String }],
   body: String,
   img: { type: Buffer },
-  comments: [{ type: Schema.Types.ObjectId, ref: "comments" }],
+  comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   date: { type: Date, default: Date.now },
   hidden: Boolean,
   meta: {

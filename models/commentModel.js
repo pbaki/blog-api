@@ -10,8 +10,8 @@ const commentSchema = new Schema({
     upvotes: { type: Number, default: 0 },
     downvotes: { type: Number, default: 0 },
   },
-  post: { type: Schema.Types.ObjectId, ref: "blogpost" },
-  subcomments: [{ type: Schema.Types.ObjectId, ref: "comments" }],
+  post: { type: Schema.Types.ObjectId, ref: "Blog" },
+  subcomments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
 });
 
 commentSchema.virtual("dateConverted").get(function () {
