@@ -10,8 +10,8 @@ const blogSchema = new Schema({
   date: { type: Date, default: Date.now },
   hidden: Boolean,
   meta: {
-    upvotes: Number,
-    downvotes: Number,
+    upvotes: { type: Number, default: 0 },
+    downvotes: { type: Number, default: 0 },
   },
 });
 

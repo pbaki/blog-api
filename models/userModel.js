@@ -10,10 +10,10 @@ const userSchema = new Schema({
   membership: [{ type: String, enum: ["basic", "creator", "admin"] }],
   date: { type: Date, default: Date.now },
   meta: {
-    blogupvotes: Number,
-    blogdownvotes: Number,
-    commentupvotes: Number,
-    commentdownvotes: Number,
+    blogupvotes: { type: Number, default: 0 },
+    blogdownvotes: { type: Number, default: 0 },
+    commentupvotes: { type: Number, default: 0 },
+    commentdownvotes: { type: Number, default: 0 },
   },
 });
 
