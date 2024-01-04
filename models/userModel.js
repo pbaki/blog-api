@@ -29,4 +29,4 @@ userSchema.virtual("dateConverted").get(function () {
   return formattedDate;
 });
 
-module.exports = mongoose.model("User", commuserSchemaentSchema);
+module.exports = mongoose.model("User", userSchema);
