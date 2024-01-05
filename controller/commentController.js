@@ -1,10 +1,17 @@
 const asyncHandler = require("express-async-handler");
 const Blog = require("../models/blogModel");
-const Comment = require("../models/blogModel");
-const User = require("../models/blogModel");
+const Comment = require("../models/commentModel");
+const User = require("../models/userModel");
 
 exports.get_comments = asyncHandler(async (req, res, next) => {
-  res.send(`Not implemented yet`);
+  const comments = await Comment.find();
+  if (comments.length > 0) {
+    res.status(200).json({ success: true, comments: comments });
+  } else {
+    res
+      .status(404)
+      .json({ error: "Comments not found or there are no comments" });
+  }
 });
 
 exports.get_single_comment = asyncHandler(async (req, res, next) => {
