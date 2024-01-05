@@ -192,16 +192,74 @@ exports.create_blogpost_comment = asyncHandler(async (req, res, next) => {
 });
 
 exports.get_single_blogpost_comment = asyncHandler(async (req, res, next) => {
-  res.send(`Not implemented yet`);
+  const blog = await Blog.findOne({ title: req.params.posttitle }).populate(
+    "comments"
+  );
+
+  if (!blog) {
+    return res.status(404).json({ error: "Blog post not found" });
+  }
+  const commentidToFind = req.params.commentid;
+
+  const singleComment = blog.comments.find(
+    (comment) => comment._id.toString() === commentidToFind
+  );
+
+  if (!singleComment) {
+    return res.status(404).json({ error: "Comment not found" });
+  }
+
+  res.status(200).json({ success: true, comment: singleComment });
 });
+
 exports.update_single_blogpost_comment = asyncHandler(
-  //To be sanitized
   async (req, res, next) => {
-    res.send(`Not implemented yet`);
+    [
+      body("author", "Author must contain at least 1 character")
+        .trim()
+        .isLength({ min: 1 })
+        .escape(),
+      body("body", "comment content body must be at least 5 characters long")
+        .trim()
+        .isLength({ min: 5 })
+        .escape(),
+      body("date").trim().escape(),
+      body("hidden").trim().escape(),
+      body("hidden", "Hidden must be a boolean value").isBoolean().toBoolean(),
+    ];
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    console.log("Updating single comment");
+
+    const commentIdToFind = req.params.commentid;
+
+    const updatedComment = await Comment.findOneAndUpdate(
+      { _id: commentIdToFind },
+      req.body,
+      { new: true }
+    );
+
+    if (!updatedComment) {
+      return res.status(404).json({ error: "Comment not found" });
+    }
+
+    res.status(200).json({ success: true, comment: updatedComment });
   }
 );
+
 exports.delete_single_blogpost_comment = asyncHandler(
   async (req, res, next) => {
-    res.send(`Not implemented yet`);
+    console.log("Deleting single comment");
+    const commentIdToFind = req.params.commentid;
+
+    const deletedComment = await Comment.findByIdAndDelete(commentIdToFind);
+    if (deletedComment) {
+      res.status(200).json({ success: true, deletedComment });
+    } else {
+      res.status(404).json({ error: "Comment not found or not deleted" });
+    }
   }
 );
