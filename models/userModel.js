@@ -1,13 +1,18 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+const passportLocalMongoose = require("passport-local-mongoose");
 
 const userSchema = new Schema({
   username: { type: String, required: true, maxLength: 100 },
-  password: { type: String, required: true, maxLength: 100 },
+  password: { type: String, maxLength: 100 },
   email: { type: String, required: false },
   comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   posts: [{ type: Schema.Types.ObjectId, ref: "Blog" }],
-  membership: [{ type: String, enum: ["basic", "creator", "admin"] }],
+  membership: {
+    type: [String],
+    enum: ["basic", "creator", "admin"],
+    default: ["basic"],
+  },
   date: { type: Date, default: Date.now },
   meta: {
     blogupvotes: { type: Number, default: 0 },
@@ -28,5 +33,7 @@ userSchema.virtual("dateConverted").get(function () {
   });
   return formattedDate;
 });
+
+userSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model("User", userSchema);
