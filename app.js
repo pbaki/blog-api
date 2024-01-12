@@ -3,6 +3,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 require("dotenv").config();
+const cors = require("cors");
 
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
@@ -14,6 +15,8 @@ var usersRouter = require("./routes/users");
 var commentsRouter = require("./routes/comments");
 
 var app = express();
+
+app.use(cors());
 
 app.use(
   session({
