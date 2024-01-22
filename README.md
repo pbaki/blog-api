@@ -20,11 +20,11 @@ Currently app is hosted using [Adaptable](https://adaptable.io/) free plan and d
 
 Currently everyone has access to make requests, and sample get request could be to https://blogapi22.adaptable.app/posts to get list of posts from MongoDB database. Rest of requests are explained below.
 
+---
+
 ### Blogpost requests
 
 All blogpost requests follow pattern https://blogapi22.adaptable.app/posts/...
-
----
 
 List of all posts - get > /posts
 
@@ -46,24 +46,22 @@ Update single comment - put > posts/:posttitle/comments/commentid with same para
 
 Delete comment - delete > /posts/posttitle/comments/commentid
 
----
-
 Some initial general rules: Title needs to be unique, and contain at least 1 character, There must be atleast 1 author, Blog content must be at least 5 characters long, Author must contain at least 1 character, comment content body must be at least 5 characters long
+
+---
 
 ### Comments requests
 
 All comments requests follow pattern https://blogapi22.adaptable.app/comments/...
 
----
-
 List of all comments - > get /comments
+
+---
 
 ### Users requests
 
 All user requests expect login, register, logout follow pattern https://blogapi22.adaptable.app/users/...
 Only users logged with admin membership can make requests on user, sample admin user is with {username: zxc, password: zxc}
-
----
 
 Register user - post > /register with params ({ username : unique username, password : userpassword})
 
